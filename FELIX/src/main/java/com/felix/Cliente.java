@@ -23,7 +23,7 @@ public class Cliente {
         this.direccion = direccion;
     }
     
-    public void ingresarDatos(String ID)
+    public Cliente ingresarDatos(String ID)
     {
         setID(ID);
         nombre = Validaciones.leerString("Nombre: ");
@@ -31,8 +31,23 @@ public class Cliente {
         telefono = Validaciones.leerString("Telefono: ");
         correo = Validaciones.leerString("Correo: ");
         direccion = Validaciones.leerString("Direccion: ");
+        Cliente objc = new Cliente(ID,nombre,apellido,telefono,correo,direccion);
+        return objc;
+        
     }
 
+    @Override
+    public String toString() {
+        return "Cliente\nID:" + ID + "\nNombre:" + nombre + "\nApellido:" + 
+                apellido + "\nTelefono:" + telefono + "\nCorreo: " + correo + 
+                "\nDireccion: " + direccion;
+    }
+
+    public String estructuraReg(){
+        return ID + "," + nombre + "," + telefono +"," + correo + "," + direccion;
+    }
+    
+    
     public String getID() {
         return ID;
     }

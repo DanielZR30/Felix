@@ -51,6 +51,9 @@ public class Felix {
                     //Cancelar cita
                     break;
                 case 4:
+                    //Anadir cliente
+                    break;
+                case 5:
                     //Mostrar datos del cliente (menu cliente)
                     break;
                 default:
@@ -77,9 +80,12 @@ public class Felix {
     {
         return"""
               Menu Principal:
-              1.Clinica
-              2.Tienda de Mascotas
-              0.Salir
+              1.Ver citas del dia.
+              2.Asignar cita.
+              3.Cancelar cita.
+              4:Añadir cliente.
+              5.Buscar cliente.
+              10.Salir
               """;
     }
 
