@@ -5,6 +5,7 @@
 
 package com.felix;
 
+import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,12 +38,19 @@ public class Felix {
 
     private static void servicioClinico(Felix objF) {
         int op;
+        ManejoServicio objMS = new ManejoServicio();
+        Archivos objArch = new Archivos();
+        Cola c1,c2;
+        c1 = new Cola(100000);
+        c2 = new Cola(100000);
         do{
             op = Validaciones.leerEntero(objF.Opcion1());
             switch(op)
             {
                 case 1:
-                    //ver citas para el dia
+                    c1 = objMS.ArchivoDia(objArch, c1);
+                    JOptionPane.showMessageDialog(null,"Citas para hoy:\n" +
+                            objMS.ImprimirPorFecha(c1, c2));
                     break;
                 case 2:
                     //Asignar cita
@@ -73,7 +81,7 @@ public class Felix {
               Menu Principal:
               1.Clinica
               2.Tienda de Mascotas
-              0.Salir
+              3.Salir
               """;
     }
     public String Opcion1()

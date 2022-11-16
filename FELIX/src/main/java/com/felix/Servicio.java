@@ -4,22 +4,31 @@
  */
 package com.felix;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author Usuario
  */
 public class Servicio {
+    
+    
     private boolean cancelado,asistido;
     private String ID,tipo,IDMascota,observaciones;
-    private LocalDate FechaAsignada;
+    private LocalDateTime FechaAsignada;
     private double precio;
+    
+    
+    //auxiliar
+    //formato para fechas
+    DateTimeFormatter formato =DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    
 
     public Servicio() {
     }
 
-    public Servicio(boolean cancelado, boolean asistido, String ID, String tipo, String IDMascota, String observaciones, LocalDate FechaAsignada,double precio) {
+    public Servicio(String ID,String IDMascota, String tipo, String observaciones, LocalDateTime FechaAsignada,double precio,boolean cancelado, boolean asistido) {
         this.cancelado = cancelado;
         this.asistido = asistido;
         this.ID = ID;
@@ -64,6 +73,10 @@ public class Servicio {
                 "," + FechaAsignada +","+precio+","+ asistido + "," + cancelado;
     }
 
+    public String imprimirImportante() {
+        return ID + ",Mascota" + IDMascota  + "," + tipo + 
+                "," + FechaAsignada.format(formato) +","+precio+"\n";
+    }
     
     
     public boolean isCancelado() {
@@ -114,11 +127,11 @@ public class Servicio {
         this.observaciones = observaciones;
     }
 
-    public LocalDate getFechaAsignada() {
+    public LocalDateTime getFechaAsignada() {
         return FechaAsignada;
     }
 
-    public void setFechaAsignada(LocalDate FechaAsignada) {
+    public void setFechaAsignada(LocalDateTime FechaAsignada) {
         this.FechaAsignada = FechaAsignada;
     }
     

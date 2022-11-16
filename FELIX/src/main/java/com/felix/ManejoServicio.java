@@ -5,6 +5,8 @@
 package com.felix;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,11 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class ManejoServicio {
     
-    public Cola ArchivoDia(Archivos objArch,Cola c1,Cola c2)
+    //formato para fechas
+    DateTimeFormatter formato =DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    
+    public Cola ArchivoDia(Archivos objArch,Cola c1)
     {
         try{
             String id,ti,idm,obs;
-            LocalDate fe;
+            LocalDateTime fe;
             double pr;
             boolean can,as;
             
@@ -31,16 +36,45 @@ public class ManejoServicio {
                 idm = Reg[1];
                 ti = Reg[2];
                 obs = Reg[3];
-                fe = LocalDate.parse(Reg[4]);
+                fe = LocalDateTime.parse(Reg[4],formato);
                 pr = Double.parseDouble(Reg[5]);
                 can = Reg[6].equalsIgnoreCase("true");
                 as = Reg[6].equalsIgnoreCase("true");
+            
+                Servicio s = new Servicio(id,idm,ti,obs,fe,pr,can,as);
+                
+                if(fe.toLocalDate().equals(LocalDateTime.now().toLocalDate()))
+                {
+                    c1.Push(s);
+                }
+                Reg = objArch.LeerRegistro(8);
             }
-            
+            objArch.CerrarArchivoModoLectura();
         }catch(Exception ex){
-            
+            JOptionPane.showMessageDialog(null, "***Archivo leído y cerrado correctamente*****");
         }
         return c1;
     }
     
+    public String ImprimirPorFecha(Cola c1, Cola c2)
+    {
+        String cadena=""; 
+        Servicio s;
+        while(c1.IsEmpty()==false)
+        {
+          s=(Servicio) c1.Pop();//desacolamos el cliente en la cola original
+          cadena= cadena+"Servicio:"+s.imprimirImportante();//se coloca en la cadena para mandar a imprimir
+          c2.Push(s);//se acola en la cola auxiliar para que no se pierda la informacion
+        }//fin de mientras
+        PasarCola(c2,c1);//llamada al metodo para volver los datos de auxiliar a original
+        return cadena;
+    }
+    
+    public void PasarCola(Cola objca,Cola objc)
+    {
+        while(objca.IsEmpty()==false)
+        {
+            objc.Push(objca.Pop());
+        }//fin mientras
+    }//fin de deolver cola
 }

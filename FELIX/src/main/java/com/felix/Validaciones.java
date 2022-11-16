@@ -1,6 +1,6 @@
 package com.felix;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -73,8 +73,8 @@ public class Validaciones {
     
     /*metodo que lee una fecha sin el campo de tiempo, la lee como String
     valida que no dejen en blanco el String, luego este String lo pasa a
-    fecha en dia,mes,año y lo retorna como tipo de dato LocalDate*/
-     public static LocalDate leerfecha(String mensaje) {
+    fecha en dia,mes,año y lo retorna como tipo de dato LocalDateTime*/
+     public static LocalDateTime leerfecha(String mensaje) {
         String Cfecha = "";
         do {
             try {
@@ -90,9 +90,9 @@ public class Validaciones {
         } while (Cfecha.equals(""));
         //lectura de entrada de teclado almacenada en String
         //se da el formato establecido       
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
-        //se pasa el String a LocalDate que es el tipo de fecha sin hora
-        LocalDate fecha = LocalDate.parse(Cfecha, formato); 
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"); 
+        //se pasa el String a LocalDateTime que es el tipo de fecha sin hora
+        LocalDateTime fecha = LocalDateTime.parse(Cfecha, formato); 
         return fecha;
     }
      
