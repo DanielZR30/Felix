@@ -44,11 +44,11 @@ public class Servicio {
         asistido = false;
         tipo = Validaciones.LeerCategoria();
         IDMascota = IDM;
-        FechaAsignada = Validaciones.leerfecha("Fecha:");
+        FechaAsignada = Validaciones.leerFecha("Fecha:");
         observaciones = "";
         ID = generarID(IDMascota);
         precio = Validaciones.leerReal("Precio:");
-        Servicio objs = new Servicio();
+        Servicio objs = new Servicio(ID,IDMascota,tipo,observaciones,FechaAsignada,precio,cancelado,asistido);
         return objs;
     }
     

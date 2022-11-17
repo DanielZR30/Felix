@@ -5,6 +5,7 @@
 
 package com.felix;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 
@@ -40,10 +41,14 @@ public class Felix {
     private void servicioClinico(Felix objF) {
         int op;
         ManejoServicio objMS = new ManejoServicio();
+        ManejoMascota objMM = new ManejoMascota();
         Archivos objArch = new Archivos();
         CRUDCliente objCRUDC = new CRUDCliente();
         CRUDServicio objCRUDS = new CRUDServicio();
+        CRUDMascota objCRUDM = new CRUDMascota();
         Cola c1,c2;
+        ListaDoble li = new ListaDoble();
+        Servicio objS = new Servicio();
         String id;
         c1 = new Cola(100000);
         c2 = new Cola(100000);
@@ -58,9 +63,12 @@ public class Felix {
                     break;
                 case 2:
                     //Asignar cita
+                    id = Validaciones.leerString("Ingrese la cedula:");
+                    objS = objF.asignarCita(id,"", li);
                     break;
                 case 3:
                     //Cancelar cita
+                    JOptionPane.showMessageDialog(null,"Funcion no disponible todavia.");
                     break;
                 case 4:
                     id=Validaciones.leerString("Digite el documento del cliente: ");
@@ -103,20 +111,23 @@ public class Felix {
             {
                 case 1:
                     //mostrar mascotas
-                    li = objMM.MascotasPorDueno(objArch, li, id);
+                    li = objMM.MascotasPorDueno(objArch, id);
                     menuMascotas(id,li,objF,objArch,objC);
                     break;
                 case 2:
                     //Asignar cita
+                    JOptionPane.showMessageDialog(null,"Funcion no disponible todavia.");
                     break;
                 case 3:
                     //cancelar cita
+                    JOptionPane.showMessageDialog(null,"Funcion no disponible todavia.");
                     break;
                 case 4:
                     //editar informacion
+                    JOptionPane.showMessageDialog(null,"Funcion no disponible todavia.");
                     break;
                 case 5:
-                    
+                    JOptionPane.showMessageDialog(null,"Funcion no disponible todavia.");
                     break;
                 case 10:
                     JOptionPane.showMessageDialog(null,"Abriendo menú Clinica");
@@ -132,6 +143,8 @@ public class Felix {
     private void menuMascotas(String id, ListaDoble li, Felix objF,
             Archivos objArch,Cliente objC) {
         CRUDCliente objCRUDC = new CRUDCliente();
+        CRUDServicio objCRUDS = new CRUDServicio();
+        CRUDMascota objCRUDM = new CRUDMascota();
         ManejoMascota objMM = new ManejoMascota();
         ManejoServicio objMS = new ManejoServicio();
         Mascota objM = new Mascota();
@@ -140,7 +153,7 @@ public class Felix {
         int op, tM = objMM.contarMascotas(li);
         
         do{
-        op = Validaciones.leerEntero(li.InfoDesdeInicio()+"\n"+(tM+1)+
+        op = Validaciones.leerEntero(objMM.mostrarImportanteLista(li)+"\n"+(tM+1)+
                 ". Añadir Mascota."+"\n"+(tM+2)+". Atras.");
         }while(op>(tM+2));
         if(op == tM + 2) 
@@ -149,41 +162,80 @@ public class Felix {
         }else if(op<=tM)
         {
             objM = (Mascota) li.buscarIndice(op);
+            //pila del Historial
+            p = objMS.serviciosMascota(objArch, objM.getID());
+            do{
+                op = Validaciones.leerEntero(objF.mensajeMascota());
+                switch(op)
+                {
+                    case 1:
+                        JOptionPane.showMessageDialog(null,"Historia:\n" +
+                                ((p.IsEmpty())?"No hay citas":objMS.ImprimirPila(p,p2 )));
+                        break;
+                    case 2: 
+                        JOptionPane.showMessageDialog(null,"Cita:\n"+
+                                objCRUDS.IngresarServicio(objArch,objM.getID()).toString());
+                        break;
+                    case 3:
+                        LocalDate fecha = Validaciones.leerFecha(
+                                "Ingrese la fecha de la cita para cancelar:").toLocalDate();
+                        String idS = objMS.obtenerIDFecha(fecha,p,p2);
+                        objCRUDS.cancelarCita(objArch, idS);
+                        break;
+                    case 4:
+                        //editar
+                        JOptionPane.showMessageDialog(null,"Funcion no disponible todavia.");
+                        break;
+                    case 5:
+                        //eliminar mascota
+                        JOptionPane.showMessageDialog(null,"Funcion no disponible todavia.");
+                        break;
+                    case 10:
+                        JOptionPane.showMessageDialog(null,"Saliendo de Mascota.");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null,"Funcion no disponible.");
+                        break;
+                }
+            }while(op<10);
         }else
         {
             //añadir mascota
+            objCRUDM.IngresarMascota(objArch, id);
         }
-        do{
-            op = Validaciones.leerEntero(objF.mensajeMascota());
-            switch(op)
-            {
-                case 1:
-                    p = objMS.serviciosMascota(objArch, objM.getID());
-                    JOptionPane.showMessageDialog(null,"Historia:\n" +
-                            objMS.ImprimirPila(p,p2 ));
-                    break;
-                    
-                    
-            }
-        }while(op<5);
         
+                   
+    }
+    
+    public Servicio asignarCita(String idDueno,String idMascota,ListaDoble li)
+    {
+        Archivos objArch = new Archivos();
+        CRUDCliente objCRUDC = new CRUDCliente();
+        CRUDServicio objCRUDS = new CRUDServicio();
+        CRUDMascota objCRUDM =new CRUDMascota();
+        ManejoMascota objMM = new ManejoMascota();
+        ManejoServicio objMS = new ManejoServicio();
         
+        Servicio objS = new Servicio();
         
-                
+        if(!objCRUDC.Buscar(objArch, idDueno)){
+            objCRUDC.IngresarCliente(objArch, idDueno);
+            idMascota = objCRUDM.IngresarMascota(objArch,idDueno).getID();
+        }
+        if(!idMascota.isBlank()){
+            objS = objCRUDS.IngresarServicio(objArch, idMascota);
+            return objS;
+        }
+        String nombre = Validaciones.leerString("Ingrese el nombre de la mascota");
+        idMascota = objCRUDM.buscarNombre(objArch,idDueno,nombre);
+        
+        objS = objCRUDS.IngresarServicio(objArch,idMascota);
+        
+        return objS;
     }
     
     public String menuPpal()
     {
-        return"""
-              Menu Principal:
-              1.Mostrar Mascotas
-              2.Asignar cita
-              3.Cancelar cita
-              4. Editar informacion
-              5.
-              """;
-    }
-    private String mensajeCliente() {
         return"""
               Menu Principal:
               1.Clinica
@@ -191,11 +243,22 @@ public class Felix {
               3.Salir
               """;
     }
+    private String mensajeCliente() {
+        return """
+              Menu Cliente:
+              1.Mostrar Mascotas
+              2.Asignar cita
+              3.Cancelar cita
+              4.Editar informacion
+              5.
+              10. Salir.
+              """;
+    }
     
     public String Opcion1()
     {
         return"""
-              Menu Principal:
+              Menu Clinica:
               1.Ver citas del dia.
               2.Asignar cita.
               3.Cancelar cita.

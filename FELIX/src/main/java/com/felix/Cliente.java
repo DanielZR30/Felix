@@ -26,7 +26,7 @@ public class Cliente {
     public Cliente ingresarDatos(String ID)
     {
         setID(ID);
-        nombre = Validaciones.leerString("Nombre: ");
+        nombre = Validaciones.leerString("Nombre del cliente: ");
         apellido = Validaciones.leerString("Apellido: ");
         telefono = Validaciones.leerString("Telefono: ");
         correo = Validaciones.leerString("Correo: ");

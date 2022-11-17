@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class CRUDCliente {
     /*Metodo que busca una IDaca en el archivo IDano y si lo encuentra
     retorna verdadero, sino lo encuentra retorna falso*/
-     public boolean Buscar(Archivos objArch, String ID) 
+    public boolean Buscar(Archivos objArch, String ID) 
     { 
         boolean sw=false;
         try {

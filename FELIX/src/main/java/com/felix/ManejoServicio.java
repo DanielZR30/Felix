@@ -36,7 +36,7 @@ public class ManejoServicio {
                 idm = Reg[1];
                 ti = Reg[2];
                 obs = Reg[3];
-                fe = LocalDateTime.parse(Reg[4],formato);
+                fe = LocalDateTime.parse(Reg[4]);
                 pr = Double.parseDouble(Reg[5]);
                 can = Reg[6].equalsIgnoreCase("true");
                 as = Reg[6].equalsIgnoreCase("true");
@@ -77,14 +77,14 @@ public class ManejoServicio {
                 idM = Reg[1];
                 ti = Reg[2];
                 obs = Reg[3];
-                fe = LocalDateTime.parse(Reg[4],formato);
+                fe = LocalDateTime.parse(Reg[4]);
                 pr = Double.parseDouble(Reg[5]);
                 can = Reg[6].equalsIgnoreCase("true");
                 as = Reg[7].equalsIgnoreCase("true");
             
                 Servicio s = new Servicio(id,idm,ti,obs,fe,pr,can,as);
                 
-                if(idm.equalsIgnoreCase(idM))
+                if(idm.equalsIgnoreCase(idM)&&!can)
                 {
                     p1.Push(s);
                 }
@@ -133,6 +133,24 @@ public class ManejoServicio {
         }//fin mientras
     }//fin de deolver cola
     
+    public String obtenerIDFecha(LocalDate fecha, Pila p, Pila p2) {
+        Servicio dato;
+        String id = "";
+        while(p.IsEmpty()==false)
+        {
+            dato = (Servicio) p.Pop();
+            
+            if(fecha.equals(dato.getFechaAsignada().toLocalDate()))
+            {
+                id = dato.getID();
+            }else{
+                p2.Push(dato);
+            }
+        }
+        PasarPila(p2,p);
+        return id;
+    }
+    
     public void PasarPila(Pila objpa,Pila objp)
     {
         while(objpa.IsEmpty()==false)
@@ -140,4 +158,6 @@ public class ManejoServicio {
             objp.Push(objpa.Pop());
         }//fin mientras
     }//fin de deolver cola
+
+
 }

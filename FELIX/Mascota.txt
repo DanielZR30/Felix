@@ -1,0 +1,4 @@
+10-1,Fufy,Gato,10,Hembra
+1010-1,Fufy,Gato,1010,Macho
+10-2,Kira,Perro,10,Hembra
+1010-2,Mystique,Perro,1010,Hembra

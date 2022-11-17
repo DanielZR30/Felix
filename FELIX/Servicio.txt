@@ -1,8 +1,4 @@
-1,1,clinico,el paciente esta paila,15/11/2022 04:40,30.0,false,true
-2,2,estetico,el paciente esta paila,15/11/2022 05:00,30.0,false,true
-3,2,clinico,el paciente esta paila,15/11/2022 06:40,30.0,true,false
-4,1,clinico,el paciente esta paila,15/11/2022 07:00,30.0,false,false
-5,2,estetico,el paciente esta paila,15/11/2022 07:20,30.0,true,true
-6,1,clinico,el paciente esta paila,15/11/2022 07:40,30.0,true,false
-7,2,clinico,el paciente esta paila,16/11/2022 04:40,30.0,false,false
-8,1,estetico,el paciente esta paila,16/11/2022 04:40,30.0,false,true
+10-1-1,10-1,Estetico,,2022-11-17T04:40,50.0,false,false
+1010-1-1,1010-1,Estetico,,2022-11-17T04:40,50.0,false,false
+10-2-1,10-2,Clinico,,2022-11-17T04:20,50.0,false,false
+10-2-2,10-2,Estetico,,2022-11-18T04:40,25.0,false,false

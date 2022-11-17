@@ -74,12 +74,12 @@ public class Validaciones {
     /*metodo que lee una fecha sin el campo de tiempo, la lee como String
     valida que no dejen en blanco el String, luego este String lo pasa a
     fecha en dia,mes,año y lo retorna como tipo de dato LocalDateTime*/
-     public static LocalDateTime leerfecha(String mensaje) {
+     public static LocalDateTime leerFecha(String mensaje) {
         String Cfecha = "";
         do {
             try {
 
-                Cfecha = JOptionPane.showInputDialog(mensaje+ " (dd/MM/yyyy):");
+                Cfecha = JOptionPane.showInputDialog(mensaje+ " (dd/MM/yyyy HH:mm):");
                 if (Cfecha.equals("")) {
                     JOptionPane.showMessageDialog(null, "ERROR, NO debe dejarla en blanco, \n¡DEBE ingresar informacion!");
                 }
@@ -109,12 +109,13 @@ public class Validaciones {
         String Genero=opciones.toString();//pasamos la opcion tipo Object a string
         return Genero;
      }//fin de leer genero
+     
      public static String LeerCategoria()
      {
         //lectura de genero, tambien se puede hacer de otra forma
         Object opciones;//las opciones del selector deben ser tipo object
         //se crea un vector tipo object que llamé gen con las opciones que necesito
-        Object [] tipo ={"Hembra","Macho","Desconocido"};
+        Object [] tipo ={"Estetico","Clinico","Otro"};
         do{//este ciclo esta validando cuando seleccionan el boton cancel... sino se coloca el cancel se sale abruptamente del programa
            opciones = JOptionPane.showInputDialog(null,"Tipo:", "Seleccione una opción",JOptionPane.QUESTION_MESSAGE,null,tipo, tipo[0]);
            //se pide la variable opciones para pasarlo a genero que es string, se selecciona solo una de las que queremos

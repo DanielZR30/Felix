@@ -13,8 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class ManejoMascota {
     
-    public ListaDoble MascotasPorDueno(Archivos objArch,ListaDoble li,String idDueno)
+    public ListaDoble MascotasPorDueno(Archivos objArch,String idDueno)
     {
+        ListaDoble li = new ListaDoble();
         try{
             String id,nom,esp,duen,gen;
             
@@ -22,7 +23,7 @@ public class ManejoMascota {
             JOptionPane.showMessageDialog(null,""+objArch.AbrirArchivoModoLectura("Mascota.txt"));
             Reg = objArch.LeerRegistro(5);
             
-            while(Reg != null)
+            while(Reg[0] != null)
             {
                 id = Reg[0];
                 nom = Reg[1];
@@ -34,7 +35,7 @@ public class ManejoMascota {
                 
                 if(idDueno.equalsIgnoreCase(duen))
                 {
-                    li.InsertarNodoPorFinal(m);
+                    li.InsertarNodoPorInicio(m);
                 }
                 Reg = objArch.LeerRegistro(8);
             }
@@ -45,9 +46,24 @@ public class ManejoMascota {
         return li;
     }
 
+    public String mostrarImportanteLista(ListaDoble li){
+        Mascota dato;
+        int cont = 0;
+        String txt = "";
+        li.q = li.getStart();
+        while(li.q!=null){
+            cont ++;
+            dato = (Mascota) li.q.getDato();
+            txt += cont+". " + dato.getID() + "," + dato.getNombre() +
+                    dato.getEspecie()+ "\n";
+            li.q = li.q.getSig();
+        }
+        return txt;
+    }
+    
     public int contarMascotas(ListaDoble li)
     {
-        int cont = 1;
+        int cont = 0;
         
         li.q = li.getStart();
         

@@ -27,7 +27,7 @@ public class Mascota {
     public Mascota ingresarDatos(String IDD)
     {
         int option;
-        nombre = Validaciones.leerString("Nombre: ");
+        nombre = Validaciones.leerString("Nombre de la mascota: ");
         especie = Validaciones.leerString("Especie: ");
         dueno = IDD;
         option = JOptionPane.showConfirmDialog(null,"Desea agregar una identificación","Agregar mascota", JOptionPane.YES_NO_OPTION);
@@ -37,7 +37,7 @@ public class Mascota {
            ID = generarID(dueno); 
         }
         
-        genero = Validaciones.leerString("Genero: ");
+        genero = Validaciones.LeerGenero();
         Mascota objm = new Mascota(ID,nombre,especie,dueno,genero);
         return objm;
         
