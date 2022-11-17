@@ -92,6 +92,15 @@ public String InfoDesdeFinal()
 return texto;
 }//fin imprimir
 
+public Object buscarIndice(int index)
+{
+    q = getStart();
+    for(int i = 1;i<index;i++){
+        q = q.getSig();
+    }
+    return q.getDato();
+}
+
 //libera el primer nodo de la lista
 public Object LiberarInicio()
 {

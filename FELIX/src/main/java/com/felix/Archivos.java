@@ -1,7 +1,5 @@
 package com.felix;
 
-
-
 import java.io.*;
 
  /*Las clases FileReader y FileWriter permiten leer y escribir, respectivamente, en un archivo,

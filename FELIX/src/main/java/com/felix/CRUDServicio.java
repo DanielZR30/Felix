@@ -4,6 +4,7 @@
  */
 package com.felix;
 
+import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,14 +13,17 @@ import javax.swing.JOptionPane;
  */
 public class CRUDServicio {
     
-    public int contarServicioMascota(Archivos objArch, String idd)
+    
+    
+    
+    public int contarServicioMascota(Archivos objArch, String idm)
     {
         int cont = 0;
         CRUDMascota objc = new CRUDMascota();
         
         try {
             
-            if(objc.Buscar(objArch, idd)){
+            if(objc.Buscar(objArch, idm)){
                 //locales auxiliares para extraer la informacion del archivo
                 String IDM;
 
@@ -38,7 +42,7 @@ public class CRUDServicio {
                     IDM = Reg[1];   
 
                     //si la ID que estamos buscando es igual a la ID que extraimos del archivo en Reg
-                    if(idd.equalsIgnoreCase(IDM))
+                    if(idm.equalsIgnoreCase(IDM))
                     {cont++;}//fin si
                     //se lee el otro registro para que termine secuencialmente la lectura del archivo texto
                     Reg = objArch.LeerRegistro(8);

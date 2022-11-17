@@ -27,7 +27,7 @@ public class CRUDCliente {
             //se recibe el texto en Reg
             Reg = objArch.LeerRegistro(6);
             //mientras existan datos en el archivo
-            while (Reg != null) //mientras not EOF()
+            while (Reg[0] != null) //mientras not EOF()
             {
                 /*los datos del Reg que se obtiene del archivo IDano de texto se 
                 asignan a las variables auxiliares locales para su facil manejo 
@@ -94,4 +94,57 @@ public class CRUDCliente {
         }
 
     }//fin de grabar 
+
+    /**
+     * Busca un cliente por el id dado
+     * @param objArch objeto archivo para usar sus funciones
+     * @param id a buscar
+     * @return 
+     */ 
+    public Cliente buscarID(Archivos objArch,String id)
+     {
+        Cliente objC = new Cliente();
+         
+         try {
+            //locales auxiliares para extraer la informacion del archivo
+            String IDC,nombre,apellido,telefono,correo,direccion;
+             
+            String Reg[];//para tomar la linea String como vector de datos y facilitar el trabajo con el registro
+            //se abre el archivo modo lectura y se imprime el mensaje de apertura que retorna
+            JOptionPane.showMessageDialog(null,""+objArch.AbrirArchivoModoLectura("Cliente.txt"));
+            //se invoca al metodo de leer registro con 11 atributos para el vector de la linea o registro del archivo IDano 
+            //se recibe el texto en Reg
+            Reg = objArch.LeerRegistro(6);
+            //mientras existan datos en el archivo
+            while (Reg[0] != null) //mientras not EOF()
+            {
+                /*los datos del Reg que se obtiene del archivo IDano de texto se 
+                asignan a las variables auxiliares locales para su facil manejo 
+                como posiciones del vector String*/
+                IDC = Reg[0];
+                nombre = Reg[1];
+                apellido = Reg[2];
+                telefono = Reg[3];
+                correo= Reg[4];
+                direccion= Reg[5];        
+                
+                //si la ID que estamos buscando es igual a la ID que extraimos del archivo en Reg
+                if(id.equalsIgnoreCase(IDC))
+                {
+                    objC = new Cliente(id,nombre,apellido,telefono,correo,direccion);
+                }//fin si
+                
+                //se lee el otro registro para que termine secuencialmente la lectura del archivo texto
+                Reg = objArch.LeerRegistro(6);
+            }//fin mientras
+            //cerramos el archivo IDano de texto en modo lectura
+            objArch.CerrarArchivoModoLectura();
+
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "***Archivo leido y cerrado correctamente*****");
+        }
+         
+         return objC;
+     }
 }

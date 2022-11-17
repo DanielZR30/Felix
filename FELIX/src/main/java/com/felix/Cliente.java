@@ -44,7 +44,7 @@ public class Cliente {
     }
 
     public String estructuraReg(){
-        return ID + "," + nombre + "," + telefono +"," + correo + "," + direccion;
+        return ID + "," + nombre + ","+apellido +","+ telefono +"," + correo + "," + direccion;
     }
     
     
